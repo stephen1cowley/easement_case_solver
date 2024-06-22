@@ -5,6 +5,8 @@ from utils import TreeNode
 from langchain_openai import ChatOpenAI
 import dotenv
 from flask import Flask, jsonify, request
+import os
+import time
 
 
 dotenv.load_dotenv()
@@ -22,18 +24,21 @@ def home():
 
 @app.route('/api/data', methods=['POST'])
 def post_data():
-    new_data = request.get_json()
+    if new_data["password"] == os.environ.get('OPEN_AI_API_KEY'):
+        new_data = request.get_json()
 
-    evidence = new_data["evidence"]
+        evidence = new_data["evidence"]
 
-    json_return = traverse_tree_json(
-            evidence,
-            the_tree,
-            llm,
-            decision_node_json_schema,
-    )
-
-    return jsonify(json_return), 201
+        json_return = traverse_tree_json(
+                evidence,
+                the_tree,
+                llm,
+                decision_node_json_schema,
+        )
+        return jsonify(json_return), 201
+    else:
+        time.sleep(1)
+        return "Incorrect password", 201
 
 
 if __name__ == '__main__':
