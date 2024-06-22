@@ -24,7 +24,9 @@ def home():
 
 @app.route('/api/data', methods=['POST'])
 def post_data():
-    if new_data["password"] == os.environ.get('MY_API_PASSWORD'):
+    new_data = request.get_json()
+    password = new_data["password"]
+    if password == os.environ.get('MY_API_PASSWORD'):
         new_data = request.get_json()
 
         evidence = new_data["evidence"]
