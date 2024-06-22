@@ -1,9 +1,10 @@
 from test_trees import easement_tree
 from json_schemes import decision_node_json_schema
-from tree_traversal import traverse_tree
+from tree_traversal import traverse_tree, traverse_tree_json
 from utils import TreeNode
 from langchain_openai import ChatOpenAI
 import dotenv
+
 
 dotenv.load_dotenv()
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
@@ -21,11 +22,11 @@ evidence = ("The Basingstoke Canal Co gave Hill an exclusive contractual licence
 " to enforce it against third parties (rather than mere licence)."
 )
 
-traverse_tree(evidence,
+print(traverse_tree_json(evidence,
               the_tree,
               llm,
               decision_node_json_schema,
-)
+))
 
 print("-----------------")
 print("EXAMPLE CASE 2: RE ELLENBOROUGH PARK")
@@ -35,8 +36,8 @@ evidence = ("Ellenborough Park is a 7.5-acre (3.0 ha) park in Weston-super-Mare 
 "The landowner (of the park), the beneficiaries of the trust of the original owners of the land, challenged the assertion of an 'easement' from the immediate neighbours enjoying the expressed right to use the park in their deeds (title), which they in practice also regularly enjoyed. They stated these neighbouring owner-occupiers (and their tenants) had only a personal advantage (a licence, with no proprietary rights), and not an easement proper (which would include proprietary rights)"
 )
 
-traverse_tree(evidence,
+print(traverse_tree_json(evidence,
               the_tree,
               llm,
               decision_node_json_schema,
-)
+))
