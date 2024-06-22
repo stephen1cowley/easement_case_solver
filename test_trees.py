@@ -1,4 +1,4 @@
-test_tree = {
+easement_tree = {
 "question": "Is there a dominant and servient tenement?",
 "yes": {
 "question": "Are the dominant and servient tenements owned by different persons?",

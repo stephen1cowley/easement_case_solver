@@ -1,4 +1,4 @@
-from test_trees import test_tree
+from test_trees import easement_tree
 from json_schemes import decision_node_json_schema
 from tree_traversal import traverse_tree
 from utils import TreeNode
@@ -8,7 +8,7 @@ import dotenv
 dotenv.load_dotenv()
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
 
-the_tree = TreeNode(test_tree)
+the_tree = TreeNode(easement_tree)
 
 print("-----------------")
 print("EXAMPLE CASE 1: HILL V TUPPER")
