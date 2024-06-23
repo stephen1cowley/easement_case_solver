@@ -1,5 +1,5 @@
 from json_schemes import decision_node_json_schema
-from test_trees import binary_easement_tree, all_trees
+from test_trees import binary_easement_tree, all_trees, tree_names
 from tree_traversal import traverse_tree_json, answer_onenode_json
 from utils import TreeNode, assign_ids, find_node_by_id
 from langchain_openai import ChatOpenAI
@@ -104,7 +104,7 @@ def get_tree():
 @app.route('/api/allTrees', methods=['GET'])
 @cross_origin(origin='*')
 def get_all_trees():
-    return jsonify(all_trees), 201
+    return jsonify(tree_names), 201
 
 
 if __name__ == '__main__':

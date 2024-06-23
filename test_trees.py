@@ -181,3 +181,8 @@ all_trees = {
         "tree": binary_adv_poss_tree
     }
 }
+
+tree_names = {
+    1: "Easement",
+    2: "Adverse Possession"
+}
