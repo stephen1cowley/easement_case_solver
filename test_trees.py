@@ -182,7 +182,7 @@ all_trees = {
     }
 }
 
-tree_names = {
-    1: "Easement",
-    2: "Adverse Possession"
-}
+tree_names = [
+    {"id": 1, "name": "Easement"},
+    {"id": 2, "name": "Adverse Possession"}
+]
