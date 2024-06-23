@@ -49,7 +49,7 @@ def post_data():
 
 @app.route('/api/getNext', methods=['POST'])
 @cross_origin(origin='*')
-def post_data():
+def post_get_next_data():
     new_data = request.get_json()
     q_id = new_data["q_id"]
     des_resp = new_data["decision"]
@@ -57,12 +57,11 @@ def post_data():
     node_in_q = find_node_by_id(the_tree, q_id)
     next_node = node_in_q.children[des_resp]
     json_return = {"next_question": next_node.question,
-                   "next_conclusion": next_node.question,
+                   "next_conclusion": next_node.conclusion,
                    "next_id": next_node.id
     }
 
     return jsonify(json_return), 201
-
 
 
 if __name__ == '__main__':
