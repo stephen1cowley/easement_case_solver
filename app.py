@@ -92,5 +92,12 @@ def get_root_node():
     return jsonify(json_return), 201
 
 
+@app.route('/api/tree', methods=['GET'])
+@cross_origin(origin='*')
+def get_tree():
+    json_return = binary_easement_tree
+    return jsonify(json_return), 201
+
+
 if __name__ == '__main__':
     app.run(debug=True)
