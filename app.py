@@ -1,6 +1,6 @@
 from json_schemes import decision_node_json_schema
 from test_trees import binary_easement_tree
-from tree_traversal import traverse_tree_json
+from tree_traversal import traverse_tree_json, answer_onenode_json
 from utils import TreeNode, assign_ids, find_node_by_id
 from langchain_openai import ChatOpenAI
 import dotenv
@@ -60,6 +60,24 @@ def post_get_next_data():
                    "next_conclusion": next_node.conclusion,
                    "next_id": next_node.id
     }
+
+    return jsonify(json_return), 201
+
+
+@app.route('/api/answer', methods=['POST'])
+@cross_origin(origin='*')
+def post_get_answer():
+    new_data = request.get_json()
+    q_id = new_data["q_id"]
+    evidence = new_data["evidence"]
+    node_in_q = find_node_by_id(the_tree, q_id)
+
+    json_return = answer_onenode_json(evidence,
+                        node_in_q,
+                        llm,
+                        json_schema=decision_node_json_schema,
+                        node_id=q_id
+    )
 
     return jsonify(json_return), 201
 
