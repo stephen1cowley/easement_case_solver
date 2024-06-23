@@ -145,7 +145,7 @@ def rethink_onenode_json(evidence, the_tree, llm, json_schema, node_id):
 
         {evidence}
 
-        And must answer the following question:
+        And must answer the following question, giving immense detailed reasoning and the thought process:
 
         {the_tree.question}
         """
