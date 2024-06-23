@@ -13,8 +13,8 @@ import time
 dotenv.load_dotenv()
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
 
-the_tree = TreeNode(binary_easement_tree)
-assign_ids(the_tree)
+# the_tree = TreeNode(binary_easement_tree)
+# assign_ids(the_tree)
 
 app = Flask(__name__)
 
@@ -30,6 +30,9 @@ def home():
 def post_data():
     new_data = request.get_json()
     password = new_data["password"]
+    tree_id = new_data["tree_id"]
+    the_tree = TreeNode(all_trees[tree_id]["tree"])
+    assign_ids(the_tree)
     if password == os.environ.get('MY_API_PASSWORD'):
         new_data = request.get_json()
 
@@ -53,6 +56,9 @@ def post_get_next_data():
     new_data = request.get_json()
     q_id = new_data["q_id"]
     des_resp = new_data["decision"]
+    tree_id = new_data["tree_id"]
+    the_tree = TreeNode(all_trees[tree_id]["tree"])
+    assign_ids(the_tree)
 
     node_in_q = find_node_by_id(the_tree, q_id)
     next_node = node_in_q.children[des_resp]
@@ -70,6 +76,10 @@ def post_get_answer():
     new_data = request.get_json()
     q_id = new_data["q_id"]
     evidence = new_data["evidence"]
+    tree_id = new_data["tree_id"]
+    the_tree = TreeNode(all_trees[tree_id]["tree"])
+    assign_ids(the_tree)
+
     node_in_q = find_node_by_id(the_tree, q_id)
 
     json_return = answer_onenode_json(evidence,
@@ -88,6 +98,10 @@ def post_challenge_answer():
     new_data = request.get_json()
     q_id = new_data["q_id"]
     evidence = new_data["evidence"]
+    tree_id = new_data["tree_id"]
+    the_tree = TreeNode(all_trees[tree_id]["tree"])
+    assign_ids(the_tree)
+
     node_in_q = find_node_by_id(the_tree, q_id)
     creative_llm = ChatOpenAI(model="gpt-4o", temperature=0.8)
 
@@ -101,9 +115,14 @@ def post_challenge_answer():
     return jsonify(json_return), 201
 
 
-@app.route('/api/start', methods=['GET'])
+@app.route('/api/start', methods=['POST'])
 @cross_origin(origin='*')
 def get_root_node():
+    new_data = request.get_json()
+    tree_id = new_data["tree_id"]
+    the_tree = TreeNode(all_trees[tree_id]["tree"])
+    assign_ids(the_tree)
+
     id = the_tree.id
     json_return = {
         "id": id
