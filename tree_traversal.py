@@ -19,13 +19,13 @@ def traverse_tree(evidence, the_tree, llm, json_schema):
 
         response = structured_llm.invoke(cur_prompt)
 
-        print(f"Question: {the_tree.question}")
-        print(f"LLM response: {response['decision']}")
-        print(f"LLM reasoning: {response['reasoning']}\n")
+        print(f"question: {the_tree.question}")
+        print(f"llm_response: {response['decision']}")
+        print(f"llm_reasoning: {response['reasoning']}\n")
 
         the_tree = the_tree.children[response['decision']]
 
-    print(f"Final conclusion: {the_tree.conclusion}\n")
+    print(f"conclusion: {the_tree.conclusion}\n")
 
 
 def traverse_tree_text(evidence, the_tree, llm, json_schema):
@@ -47,13 +47,13 @@ def traverse_tree_text(evidence, the_tree, llm, json_schema):
 
         response = structured_llm.invoke(cur_prompt)
 
-        text.append(f"Question: {the_tree.question}")
-        text.append(f"LLM response: {response['decision']}")
-        text.append(f"LLM reasoning: {response['reasoning']}\n")
+        text.append(f"question: {the_tree.question}")
+        text.append(f"llm_response: {response['decision']}")
+        text.append(f"llm_reasoning: {response['reasoning']}\n")
 
         the_tree = the_tree.children[response['decision']]
 
-    text.append(f"Final conclusion: {the_tree.conclusion}\n")
+    text.append(f"conclusion: {the_tree.conclusion}\n")
 
     return "\n".join(text)
 
@@ -79,9 +79,9 @@ def traverse_tree_json(evidence, the_tree, llm, json_schema):
         response = structured_llm.invoke(cur_prompt)
 
         questions.append({
-            "Question": the_tree.question,
-            "LLM response": response['decision'],
-            "LLM reasoning": response['reasoning'],
+            "question": the_tree.question,
+            "llm_response": response['decision'],
+            "llm_reasoning": response['reasoning'],
         })
 
         the_tree = the_tree.children[response['decision']]
@@ -113,18 +113,18 @@ def answer_onenode_json(evidence, the_tree, llm, json_schema, node_id):
         response = structured_llm.invoke(cur_prompt)
 
         question = {
-            "Question": the_tree.question,
-            "LLM response": response['decision'],
-            "LLM reasoning": response['reasoning'],
+            "question": the_tree.question,
+            "llm_response": response['decision'],
+            "llm_reasoning": response['reasoning'],
         }
         final_response = question
         final_response["conclusion"] = None
         the_tree = the_tree.children[response['decision']]
     else:
         question = {
-            "Question": None,
-            "LLM response": None,
-            "LLM reasoning": None,
+            "question": None,
+            "llm_response": None,
+            "llm_reasoning": None,
         }
         final_response = question
         final_response["conclusion"] = (f"Final conclusion: {the_tree.conclusion}\n")
