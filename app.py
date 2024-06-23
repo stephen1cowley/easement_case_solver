@@ -1,5 +1,5 @@
 from json_schemes import decision_node_json_schema
-from test_trees import binary_easement_tree
+from test_trees import binary_easement_tree, all_trees
 from tree_traversal import traverse_tree_json, answer_onenode_json
 from utils import TreeNode, assign_ids, find_node_by_id
 from langchain_openai import ChatOpenAI
@@ -92,10 +92,12 @@ def get_root_node():
     return jsonify(json_return), 201
 
 
-@app.route('/api/tree', methods=['GET'])
+@app.route('/api/tree', methods=['POST'])
 @cross_origin(origin='*')
 def get_tree():
-    json_return = binary_easement_tree
+    new_data = request.get_json()
+    tree_id = new_data["tree_id"]
+    json_return = all_trees[tree_id]
     return jsonify(json_return), 201
 
 

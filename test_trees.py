@@ -124,3 +124,54 @@ binary_easement_tree = {
   "no": "No easement due to lack of dominant and servient tenement"
 }
 
+
+binary_adv_poss_tree = {
+  "question": "Is the land registered?",
+  "yes": {
+    "question": "Has the squatter been in possession for at least 10 years?",
+    "yes": {
+      "question": "Is the land adjacent to land already owned by the squatter?",
+      "yes": {
+        "question": "Has the squatter reasonably believed for 10 years that the land belonged to them?",
+        "yes": {
+          "question": "Did the squatter's belief in ownership remain reasonable until shortly before the application?",
+          "yes": "A case for adverse possession can be made out.",
+          "no": "A case for adverse possession cannot be made out."
+        },
+        "no": "A case for adverse possession cannot be made out."
+      },
+      "no": {
+        "question": "Can the squatter establish an equity by estoppel making it unconscionable for the registered proprietor to dispossess the squatter?",
+        "yes": "A case for adverse possession can be made out.",
+        "no": {
+          "question": "Is the squatter entitled to be the registered proprietor for some other reason?",
+          "yes": "A case for adverse possession can be made out.",
+          "no": "A case for adverse possession cannot be made out."
+        }
+      }
+    },
+    "no": "A case for adverse possession cannot be made out."
+  },
+  "no": {
+    "question": "Has the squatter been in possession for at least 12 years?",
+    "yes": {
+      "question": "Has the owner discontinued possession or been dispossessed?",
+      "yes": {
+        "question": "Has the squatter had exclusive factual possession and intention to possess?",
+        "yes": {
+          "question": "Has the squatter possessed the land without the owner's consent?",
+          "yes": "A case for adverse possession can be made out.",
+          "no": "A case for adverse possession cannot be made out."
+        },
+        "no": "A case for adverse possession cannot be made out."
+      },
+      "no": "A case for adverse possession cannot be made out."
+    },
+    "no": "A case for adverse possession cannot be made out."
+  }
+}
+
+all_trees = {
+    1: binary_easement_tree,
+    2: binary_adv_poss_tree
+}

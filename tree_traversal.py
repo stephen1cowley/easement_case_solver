@@ -130,3 +130,43 @@ def answer_onenode_json(evidence, the_tree, llm, json_schema, node_id):
         final_response["conclusion"] = (f"Final conclusion: {the_tree.conclusion}\n")
 
     return final_response
+
+
+def rethink_onenode_json(evidence, the_tree, llm, json_schema, node_id):
+    """Given node id, answer the question following a command to rethink."""
+    node_in_q = find_node_by_id(the_tree, node_id)
+
+    if node_in_q.conclusion is None:
+        options = [answer for answer in node_in_q.children]
+        structured_llm = llm.with_structured_output(json_schema(options))
+
+        cur_prompt = f"""You are an expert in England and Wales law.
+        You are given the following case:
+
+        {evidence}
+
+        And must answer the following question:
+
+        {the_tree.question}
+        """
+
+        response = structured_llm.invoke(cur_prompt)
+
+        question = {
+            "question": the_tree.question,
+            "llm_response": response['decision'],
+            "llm_reasoning": response['reasoning'],
+        }
+        final_response = question
+        final_response["conclusion"] = None
+        the_tree = the_tree.children[response['decision']]
+    else:
+        question = {
+            "question": None,
+            "llm_response": None,
+            "llm_reasoning": None,
+        }
+        final_response = question
+        final_response["conclusion"] = (f"Final conclusion: {the_tree.conclusion}\n")
+
+    return final_response
