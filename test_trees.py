@@ -57,3 +57,70 @@ easement_tree = {
 },
 "no": "No easement due to lack of dominant and servient tenement"
 }
+
+binary_easement_tree = {
+  "question": "Is there a dominant and servient tenement?",
+  "yes": {
+    "question": "Are the dominant and servient tenements owned by different persons?",
+    "yes": {
+      "question": "Does the right claimed accommodate the dominant tenement?",
+      "yes": {
+        "question": "Is the right claimed capable of forming the subject matter of a grant?",
+        "yes": {
+          "question": "Is the right sufficiently defined?",
+          "yes": {
+            "question": "Does the right impose a positive burden on the servient tenement?",
+            "no": {
+              "question": "Does the right oust the servient owner from reasonable use of their land?",
+              "no": {
+                "question": "Is the right being used for the benefit of the dominant tenement only?",
+                "yes": {
+                  "question": "Was the easement created by express grant or reservation?",
+                  "yes": {
+                    "question": "Does it meet the formalities to create at law (deed and registration)?",
+                    "yes": "Easement created by express grant or reservation",
+                    "no": "Equitable easement created by express grant or reservation"
+                  },
+                  "no": {
+                    "question": "Was the easement created by implied grant or reservation?",
+                    "yes": {
+                      "question": "Was the easement created by necessity?",
+                      "yes": "Easement created by necessity",
+                      "no": {
+                        "question": "Was the easement created by intended use?",
+                        "yes": "Easement created by intended use",
+                        "no": "No easement"
+                      }
+                    },
+                    "no": {
+                      "question": "Was the easement created by prescription?",
+                      "yes": {
+                        "question": "Has the right been used for 20 years?",
+                        "yes": {
+                          "question": "Was the use 'as of right' (nec vi, nec clam, nec precario)?",
+                          "yes": "Easement created by prescription",
+                          "no": "No easement"
+                        },
+                        "no": "No easement"
+                      },
+                      "no": "No easement"
+                    }
+                  }
+                },
+                "no": "No easement due to benefit to non-dominant land"
+              },
+              "yes": "No easement due to ouster principle"
+            },
+            "yes": "No easement due to positive burden on servient tenement"
+          },
+          "no": "No easement due to insufficiently defined right"
+        },
+        "no": "No easement due to incapability of forming the subject matter of a grant"
+      },
+      "no": "No easement due to lack of accommodation of the dominant tenement"
+    },
+    "no": "No easement due to same ownership of dominant and servient tenements"
+  },
+  "no": "No easement due to lack of dominant and servient tenement"
+}
+

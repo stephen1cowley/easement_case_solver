@@ -1,5 +1,5 @@
 from json_schemes import decision_node_json_schema
-from test_trees import easement_tree
+from test_trees import binary_easement_tree
 from tree_traversal import traverse_tree_json
 from utils import TreeNode
 from langchain_openai import ChatOpenAI
@@ -12,7 +12,7 @@ import time
 dotenv.load_dotenv()
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
 
-the_tree = TreeNode(easement_tree)
+the_tree = TreeNode(binary_easement_tree)
 
 app = Flask(__name__)
 
