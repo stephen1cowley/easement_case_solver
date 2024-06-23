@@ -97,8 +97,14 @@ def get_root_node():
 def get_tree():
     new_data = request.get_json()
     tree_id = new_data["tree_id"]
-    json_return = all_trees[tree_id]
+    json_return = all_trees[tree_id]["tree"]
     return jsonify(json_return), 201
+
+
+@app.route('/api/allTrees', methods=['GET'])
+@cross_origin(origin='*')
+def get_all_trees():
+    return jsonify(all_trees), 201
 
 
 if __name__ == '__main__':
