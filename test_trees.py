@@ -187,40 +187,22 @@ binary_priv_nuis_tree = {
               "question": "Is the claimant hypersensitive or using the land in a way that increases susceptibility to the interference?",
               "yes": {
                 "question": "Would the interference affect normal use of the land?",
-                "yes": {
-                  "result": "Claim for private nuisance can be made."
-                },
-                "no": {
-                  "result": "Claim for private nuisance cannot be made."
-                }
+                "yes": "Claim for private nuisance can be made.",
+                "no": "Claim for private nuisance cannot be made."
               },
-              "no": {
-                "result": "Claim for private nuisance can be made."
-              }
+              "no": "Claim for private nuisance can be made."
             },
-            "no": {
-              "result": "Claim for private nuisance cannot be made."
-            }
+            "no": "Claim for private nuisance cannot be made."
           },
-          "no": {
-            "result": "Claim for private nuisance cannot be made."
-          }
+          "no": "Claim for private nuisance cannot be made."
         },
-        "no": {
-          "result": "Claim for private nuisance cannot be made."
-        }
+        "no": "Claim for private nuisance cannot be made."
       },
-      "no": {
-        "result": "Claim for private nuisance cannot be made."
-      }
+      "no": "Claim for private nuisance cannot be made."
     },
-    "no": {
-      "result": "Claim for private nuisance cannot be made."
-    }
+    "no": "Claim for private nuisance cannot be made."
   },
-  "no": {
-    "result": "Claim for private nuisance cannot be made."
-  }
+  "no": "Claim for private nuisance cannot be made."
 }
 
 
