@@ -1,7 +1,8 @@
 class TreeNode:
     """Data structure for holding decision tree"""
     def __init__(self, decision_tree):
-        self.children = {}
+        self.children = {"yes": None, "no": None}
+        self.id = None
 
         if isinstance(decision_tree, str):
             self.question = None
@@ -15,3 +16,19 @@ class TreeNode:
 
             for answer in keys[1:]:
                 self.children[answer] = TreeNode(decision_tree[answer])
+    
+def assign_ids(node, current_id=1):
+    if node is None:
+        return current_id
+
+    # Traverse the left subtree
+    current_id = assign_ids(node.children["yes"], current_id)
+
+    # Assign the current ID to the node
+    node.id = current_id
+    current_id += 1
+
+    # Traverse the right subtree
+    current_id = assign_ids(node.children["no"], current_id)
+
+    return current_id
