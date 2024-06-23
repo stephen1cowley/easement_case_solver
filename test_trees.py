@@ -171,6 +171,60 @@ binary_adv_poss_tree = {
   }
 }
 
+binary_priv_nuis_tree = {
+  "question": "Is there a consequential, indirect interference with the claimant's land?",
+  "yes": {
+    "question": "Does the interference fall into one of these categories: encroachment, direct physical injury, or interference with comfort and convenience?",
+    "yes": {
+      "question": "Is there an unreasonable interference?",
+      "yes": {
+        "question": "Does the interference cause more than de minimis damage?",
+        "yes": {
+          "question": "Does the interference relate to a protected right (e.g., bad smells, smoke, excessive noise)?",
+          "yes": {
+            "question": "Is the interference reasonably foreseeable?",
+            "yes": {
+              "question": "Is the claimant hypersensitive or using the land in a way that increases susceptibility to the interference?",
+              "yes": {
+                "question": "Would the interference affect normal use of the land?",
+                "yes": {
+                  "result": "Claim for private nuisance can be made."
+                },
+                "no": {
+                  "result": "Claim for private nuisance cannot be made."
+                }
+              },
+              "no": {
+                "result": "Claim for private nuisance can be made."
+              }
+            },
+            "no": {
+              "result": "Claim for private nuisance cannot be made."
+            }
+          },
+          "no": {
+            "result": "Claim for private nuisance cannot be made."
+          }
+        },
+        "no": {
+          "result": "Claim for private nuisance cannot be made."
+        }
+      },
+      "no": {
+        "result": "Claim for private nuisance cannot be made."
+      }
+    },
+    "no": {
+      "result": "Claim for private nuisance cannot be made."
+    }
+  },
+  "no": {
+    "result": "Claim for private nuisance cannot be made."
+  }
+}
+
+
+
 all_trees = {
     1: {
         "tree_name": "Easement",
@@ -179,10 +233,15 @@ all_trees = {
     2: {
         "tree_name": "Adverse Possession",
         "tree": binary_adv_poss_tree
+    },
+    3: {
+        "tree_name": "Private Nuisance",
+        "tree": binary_priv_nuis_tree
     }
 }
 
 tree_names = [
     {"id": 1, "name": "Easement"},
-    {"id": 2, "name": "Adverse Possession"}
+    {"id": 2, "name": "Adverse Possession"},
+    {"id": 3, "name": "Private Nuisance"}
 ]
