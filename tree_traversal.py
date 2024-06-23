@@ -1,3 +1,6 @@
+from utils import find_node_by_id
+
+
 def traverse_tree(evidence, the_tree, llm, json_schema):
     """Traverse the entire tree making calls to LLM."""
     while the_tree.conclusion is None:
@@ -89,12 +92,12 @@ def traverse_tree_json(evidence, the_tree, llm, json_schema):
     return final_response
 
 
-def traverse_onenode_json(evidence, the_tree, llm, json_schema):
-    """Traverse the entire tree making calls to LLM."""
-    questions = []
+def answer_onenode_json(evidence, the_tree, llm, json_schema, node_id):
+    """Given node id, answer the question."""
+    node_in_q = find_node_by_id(the_tree, node_id)
 
-    if the_tree.conclusion is None:
-        options = [answer for answer in the_tree.children]
+    if node_in_q.conclusion is None:
+        options = [answer for answer in node_in_q.children]
         structured_llm = llm.with_structured_output(json_schema(options))
 
         cur_prompt = f"""You are an expert in England and Wales law.
@@ -109,16 +112,21 @@ def traverse_onenode_json(evidence, the_tree, llm, json_schema):
 
         response = structured_llm.invoke(cur_prompt)
 
-        questions.append({
+        question = {
             "Question": the_tree.question,
             "LLM response": response['decision'],
             "LLM reasoning": response['reasoning'],
-        })
-        final_response = {"questions": questions}
+        }
+        final_response = question
         final_response["conclusion"] = None
         the_tree = the_tree.children[response['decision']]
     else:
-        final_response = {"questions": None}
+        question = {
+            "Question": None,
+            "LLM response": None,
+            "LLM reasoning": None,
+        }
+        final_response = question
         final_response["conclusion"] = (f"Final conclusion: {the_tree.conclusion}\n")
 
     return final_response
