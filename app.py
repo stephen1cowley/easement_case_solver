@@ -82,5 +82,15 @@ def post_get_answer():
     return jsonify(json_return), 201
 
 
+@app.route('/api/start', methods=['GET'])
+@cross_origin(origin='*')
+def get_root_node():
+    id = the_tree.id
+    json_return = {
+        "id": id
+    }
+    return jsonify(json_return), 201
+
+
 if __name__ == '__main__':
     app.run(debug=True)
