@@ -87,3 +87,38 @@ def traverse_tree_json(evidence, the_tree, llm, json_schema):
     final_response["conclusion"] = (f"Final conclusion: {the_tree.conclusion}\n")
 
     return final_response
+
+
+def traverse_onenode_json(evidence, the_tree, llm, json_schema):
+    """Traverse the entire tree making calls to LLM."""
+    questions = []
+
+    if the_tree.conclusion is None:
+        options = [answer for answer in the_tree.children]
+        structured_llm = llm.with_structured_output(json_schema(options))
+
+        cur_prompt = f"""You are an expert in England and Wales law.
+        You are given the following case:
+
+        {evidence}
+
+        And must answer the following question:
+
+        {the_tree.question}
+        """
+
+        response = structured_llm.invoke(cur_prompt)
+
+        questions.append({
+            "Question": the_tree.question,
+            "LLM response": response['decision'],
+            "LLM reasoning": response['reasoning'],
+        })
+        final_response = {"questions": questions}
+        final_response["conclusion"] = None
+        the_tree = the_tree.children[response['decision']]
+    else:
+        final_response = {"questions": None}
+        final_response["conclusion"] = (f"Final conclusion: {the_tree.conclusion}\n")
+
+    return final_response

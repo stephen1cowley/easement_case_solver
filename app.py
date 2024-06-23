@@ -5,6 +5,7 @@ from utils import TreeNode
 from langchain_openai import ChatOpenAI
 import dotenv
 from flask import Flask, jsonify, request
+from flask_cors import cross_origin
 import os
 import time
 
@@ -18,11 +19,13 @@ app = Flask(__name__)
 
 
 @app.route('/')
+@cross_origin(origin='*')
 def home():
     return "Welcome to the easement case solver API."
 
 
 @app.route('/api/data', methods=['POST'])
+@cross_origin(origin='*')
 def post_data():
     new_data = request.get_json()
     password = new_data["password"]
