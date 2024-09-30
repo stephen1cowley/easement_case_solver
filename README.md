@@ -16,4 +16,4 @@ OPENAI_API_KEY = "xxxx"
 LANGCHAIN_TRACING_V2 = "true"
 TAVILY_API_KEY = "xxxx"
 ```
-Then run `app.py`.
+Then run `app.py` to start the development http server.
