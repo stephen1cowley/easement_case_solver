@@ -6,6 +6,11 @@ The tree is then used to query an LLM which provides answers to each question an
 
 For the frontend, see [Woody Lam's code](https://github.com/woody-lam-cwl/binary-tree-frontend).
 
+## Solution Architecture
+
+![solution-architecture](https://github.com/user-attachments/assets/e5383a20-e29b-4a43-9c8c-bcae9525fee4)
+
+
 ## Installation
 
 Create a .env file with the following contents:
